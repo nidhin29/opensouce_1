@@ -177,4 +177,106 @@ testWidgets('CircleAvatar is shown when image fails to load',
       findsOneWidget,
     );
   });
+  testWidgets('CircleAvatar in image builder is shown',
+      (widgetTester) async {
+    await widgetTester.pumpWidget(
+      const MaterialApp(
+        home: CustomAvatar(
+          isImageNull: false,
+          imageUrl: ' ',
+          firstAlphabet: 'A',
+          fontSize: 40,
+          maxRadius: 16,
+        ),
+      ),
+    );
+
+    await widgetTester.pump(const Duration(seconds: 5));
+
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is CachedNetworkImage &&
+            widget.imageBuilder != null &&
+            widget.imageBuilder is Function &&
+            widget.imageBuilder!(
+              widgetTester.binding.rootElement!,
+             const NetworkImage('https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw'),
+            ) is CircleAvatar,
+      ),
+      findsOneWidget,
+    );
+  });
+
+   testWidgets('CircleAvatar in image builder is shown with correct image',
+      (widgetTester) async {
+    await widgetTester.pumpWidget(
+      const MaterialApp(
+        home: CustomAvatar(
+          isImageNull: false,
+          imageUrl: ' ',
+          firstAlphabet: 'A',
+          fontSize: 40,
+          maxRadius: 16,
+        ),
+      ),
+    );
+
+    await widgetTester.pump(const Duration(seconds: 5));
+
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is CachedNetworkImage &&
+            widget.imageBuilder != null &&
+            widget.imageBuilder is Function &&
+            widget.imageBuilder!(
+              widgetTester.binding.rootElement!,
+             const NetworkImage('https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw'),
+            ) is CircleAvatar  &&
+          (widget.imageBuilder!(
+            widgetTester.binding.rootElement!,
+           const NetworkImage('https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw'), 
+            
+          ) as CircleAvatar).backgroundImage ==  const NetworkImage('https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw')
+      ,),
+      findsOneWidget,
+    );
+  });
+
+   testWidgets('CircleAvatar in image builder is shown with correct theme',
+      (widgetTester) async {
+    await widgetTester.pumpWidget(
+      const MaterialApp(
+        home: CustomAvatar(
+          isImageNull: false,
+          imageUrl: ' ',
+          firstAlphabet: 'A',
+          fontSize: 40,
+          maxRadius: 16,
+        ),
+      ),
+    );
+
+    await widgetTester.pump(const Duration(seconds: 5));
+
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is CachedNetworkImage &&
+            widget.imageBuilder != null &&
+            widget.imageBuilder is Function &&
+            widget.imageBuilder!(
+              widgetTester.binding.rootElement!,
+             const NetworkImage('https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw'),
+            ) is CircleAvatar  &&
+          (widget.imageBuilder!(
+            widgetTester.binding.rootElement!,
+           const NetworkImage('https://imgs.search.brave.com/OHazbRf4oO5wuydAbr6061fUGuEw-rlDB1SuXWnJgTo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiLzIy/L2JhLzZiMjJiYTg2/Yzk3NjBiMzQ4YjNh/NTMzOGFjMzI4ZmJm/LmpwZw'), 
+            
+          ) as CircleAvatar).backgroundColor ==   Theme.of(widgetTester.binding.rootElement!).iconTheme.color!.withOpacity(0.2)
+      ,),
+      findsOneWidget,
+    );
+  });
 }
