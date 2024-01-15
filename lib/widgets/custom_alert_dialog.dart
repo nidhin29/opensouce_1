@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_dynamic_calls
-
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -37,10 +35,10 @@ class CustomAlertDialog extends StatelessWidget {
   final bool reverse;
 
   /// Function triggered upon tapping the primary action button.
-  final Function success;
+  final Function() success;
 
   /// Function triggered upon tapping the secondary action button.
-  final Function? secondaryButtonTap;
+  final Function()? secondaryButtonTap;
 
   /// Text displayed on the primary action button.
   final String? successText;
@@ -91,7 +89,9 @@ class CustomAlertDialog extends StatelessWidget {
             .headlineSmall!
             .copyWith(fontWeight: FontWeight.w800),
       ),
-      content: Text(dialogSubTitle),
+      content: Text(
+        AppLocalizations.of(context)!.strictTranslate(dialogSubTitle),
+      ),
       buttonPadding: EdgeInsets.symmetric(
         horizontal: SizeConfig.screenWidth! * 0.05,
         vertical: SizeConfig.screenHeight! * 0.05,
